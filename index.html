@@ -7,18 +7,17 @@
     <style>
         /* === RESET === */
         :root {
-            /* Theme palette from Campus Match Splash */
-            --color-primary-green: #38b136; /* vibrant green */
-            --color-primary-blue: #2d73b9;  /* vibrant blue */
-            --color-accent-orange: #f2a826; /* accent yellow/orange */
+            --color-primary-green: #38b136; 
+            --color-primary-blue: #2d73b9;  
+            --color-accent-orange: #f2a826; 
             --color-text-dark: #2d3436;
             --color-text-light: #ffffff;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --transition-speed: 0.3s;
         }
 
-        * { margin: 0; padding: 0; box-shadow: none; outline: none; box-sizing: border-box; }
-        body { font-family: var(--font-main); color: var(--color-text-dark); -webkit-font-smoothing: antialiased; }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: var(--font-main); color: var(--color-text-dark); -webkit-font-smoothing: antialiased; line-height: 1.6; }
 
         /* === 1. HEADER NAV BAR === */
         header {
@@ -45,7 +44,7 @@
             gap: 10px;
         }
 
-        .logo img { height: 35px; width: auto; /* PLACEHOLDER LOGO */ }
+        .logo img { height: 35px; width: auto; }
 
         nav { display: flex; gap: 30px; }
         nav a { text-decoration: none; color: var(--color-text-dark); font-weight: 500; transition: color var(--transition-speed); font-size: 0.95rem; }
@@ -61,43 +60,39 @@
         }
         .btn-nav:hover { background-color: #1c5fa7; }
 
-        /* === 2. MAIN BODY (BACKGROUND & CLOUDS) === */
+        /* === 2. HERO SECTION (SCROLLABLE NOW) === */
         .page-wrap {
-            padding-top: 80px; /* Offset for header */
+            padding-top: 80px; 
             min-height: 100vh;
             display: flex;
             justify-content: center;
             position: relative;
-            background-color: #d1effc; /* Soft sky blue fallback */
-            overflow: hidden;
+            background-color: #d1effc; 
         }
 
-        /* 2a. YOUR GENERATED LANDSCAPE IMAGE (REQUIRED) */
         .background-campus {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('campus-background.png'); /* YOUR IMAGE NAME */
+            background-image: url('campus-background.png'); 
             background-size: cover;
             background-position: center bottom;
             background-repeat: no-repeat;
             z-index: 1;
         }
 
-        /* 2b. HOPPER-INSPIRED CLOUD LAYER */
         .clouds-layer {
             position: absolute;
             width: 100%;
             bottom: 0;
-            height: 40vh; /* Clouds cover the bottom third */
+            height: 40vh; 
             background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 1000 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M-50 300 H1050 V150 Q900 130, 800 150 T650 170 T500 150 T350 170 Q200 190, -50 150 Z" fill="%23FFFFFF"/></svg>');
             background-size: 100% 100%;
             z-index: 2;
         }
 
-        /* === 3. CONTENT CONTAINER === */
         .content-wrap {
             position: relative;
             width: 88%;
@@ -105,14 +100,11 @@
             display: grid;
             grid-template-columns: 1fr 1.1fr;
             gap: 50px;
-            z-items: 10;
             padding: 8vh 0;
             z-index: 10;
         }
 
-        /* === 4. LEFT SECTION (TEXT & BUTTON) === */
         .left-content { display: flex; flex-direction: column; justify-content: center; color: #fff; text-shadow: 1px 1px 4px rgba(0,0,0,0.2); }
-        
         .campus-badge {
             background-color: rgba(255, 255, 255, 0.2);
             padding: 6px 15px;
@@ -122,10 +114,8 @@
             margin-bottom: 20px;
             display: flex; gap: 8px; align-items: center;
         }
-        .campus-badge::before { content: '🎓'; }
-
         h1 { font-size: 3.8rem; line-height: 1.1; margin-bottom: 25px; font-weight: 800; }
-        p.subtitle { font-size: 1.2rem; margin-bottom: 45px; opacity: 0.9; line-height: 1.6; }
+        p.subtitle { font-size: 1.2rem; margin-bottom: 45px; opacity: 0.9; }
 
         .btn-large {
             display: flex; gap: 10px; align-items: center; justify-content: center;
@@ -140,59 +130,62 @@
             transition: all var(--transition-speed);
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
-        .btn-large:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-        .btn-large::after { content: '→'; font-size: 1.3rem; }
 
-        /* === 5. RIGHT SECTION (DUAL PHONE SCREENSHOTS) === */
-        .right-content { display: flex; justify-content: center; align-items: center; position: relative; }
-        
-        .phones-container {
-            display: flex;
-            gap: 20px;
-            position: absolute;
-            bottom: -50px; /* Phones overlap the cloud line slightly */
-            z-index: 30;
+        /* === 3. INFORMATION SECTIONS === */
+        .info-section {
+            background: white;
+            padding: 100px 10%;
+            text-align: center;
+            position: relative;
+            z-index: 20;
         }
 
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .info-card {
+            padding: 40px;
+            border-radius: 30px;
+            background: #f9f9f9;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .info-card:hover { transform: translateY(-10px); }
+        .info-card h3 { color: var(--color-primary-blue); margin-bottom: 15px; font-size: 1.5rem; }
+
+        /* === 4. PHONES === */
+        .right-content { display: flex; justify-content: center; align-items: center; position: relative; }
+        .phones-container { display: flex; gap: 20px; z-index: 30; }
         .phone-placeholder {
             width: 260px;
             height: 520px;
             background-color: var(--color-text-light);
             border-radius: 36px;
             overflow: hidden;
-            border: 12px solid var(--color-text-dark); /* Thick black bezel */
+            border: 12px solid var(--color-text-dark); 
             box-shadow: 10px 10px 40px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
         }
-
-        /* Shift the second phone for dynamism (Hopper style) */
+        .phone-placeholder img { width: 100%; height: 100%; object-fit: cover; }
         .phone-placeholder:nth-child(2) { transform: translateY(-40px); }
 
-        .phone-placeholder img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* Label styling inside placeholder */
-        .screenshot-label {
-            position: absolute;
-            color: #ccc;
-            font-size: 0.9rem;
-            font-style: italic;
-            background: rgba(0,0,0,0.05);
-            padding: 8px;
-            border-radius: 8px;
+        /* === 5. FOOTER === */
+        footer {
+            background: var(--color-text-dark);
+            color: white;
+            padding: 40px 6%;
+            text-align: center;
         }
 
-        /* === RESPONSIVE (MOBILE) === */
         @media (max-width: 960px) {
-            .content-wrap { grid-template-columns: 1fr; text-align: center; gap: 80px; }
+            .content-wrap { grid-template-columns: 1fr; text-align: center; }
             h1 { font-size: 2.8rem; }
             .btn-large { margin: 0 auto; }
-            .phones-container { position: relative; bottom: 0; margin-top: 50px; flex-direction: column; align-items: center; }
-            .phone-placeholder:nth-child(2) { transform: none; margin-top: -30px; }
-            nav, header .btn-nav { display: none; } /* Basic nav hide */
+            .phones-container { flex-direction: column; align-items: center; }
+            .phone-placeholder:nth-child(2) { transform: none; }
         }
     </style>
 </head>
@@ -200,55 +193,93 @@
 
     <header>
         <a href="#" class="logo">
-            <img src="logo.png" alt="Campus Match Logo Icon">
+            <img src="logo.png" alt="CM">
             <span>CampusMatch</span>
         </a>
         <nav>
-            <a href="#">Connection</a>
-            <a href="#">Inclusivity</a>
-            <a href="#">Peer Support</a>
-            <a href="#">About</a>
+            <a href="#about">About</a>
+            <a href="#how-it-helps">How it Helps</a>
+            <a href="#support">Peer Support</a>
         </nav>
         <a href="#" class="btn-nav" onclick="routeToExpo()">LAUNCH APP</a>
     </header>
 
     <div class="page-wrap">
-        
         <div class="background-campus"></div>
-
         <div class="clouds-layer"></div>
-
         <div class="content-wrap">
-
             <div class="left-content">
-                <div class="campus-badge">Powered by Students</div>
+                <div class="campus-badge">🎓 Powered by Students</div>
                 <h1>Boost Student Connection</h1>
                 <p class="subtitle">Experience an inclusive campus. Find peer support, join events, and connect with your community—all in one place.</p>
-                <a href="#" class="btn-large" onclick="routeToExpo()">Try Campus Match</a>
+                <a href="#about" class="btn-large">Learn More</a>
             </div>
-
             <div class="right-content">
                 <div class="phones-container">
-                    
                     <div class="phone-placeholder">
-                        <img src="campus_match logins.png" alt="Campus Match Login Screen">
-                        <div class="screenshot-label">(Image Placeholder 1)</div>
+                        <img src="campus_match logins.png" alt="Login">
                     </div>
-
                     <div class="phone-placeholder">
-                        <img src="loginscreen.png" alt="Campus Match Dashboard Screen">
-                        <div class="screenshot-label">(Image Placeholder 2)</div>
+                        <img src="loginscreen.png" alt="Dashboard">
                     </div>
-                    
                 </div>
             </div>
+        </div>
+    </div>
 
-        </div> </div> <script>
+    <section id="about" class="info-section">
+        <h2 style="font-size: 2.5rem; color: var(--color-primary-blue);">About Campus Match</h2>
+        <p style="max-width: 800px; margin: 20px auto; font-size: 1.1rem; color: #636e72;">
+            Campus Match is a dedicated social platform designed exclusively for college students. We believe that university life is better when we're connected. Our app bridges the gap between different departments, years, and interests to create a unified student body.
+        </p>
+        <div class="section-grid">
+            <div class="info-card">
+                <h3>Our Vision</h3>
+                <p>To create a campus environment where no student feels isolated and every voice is part of the community.</p>
+            </div>
+            <div class="info-card">
+                <h3>Our Mission</h3>
+                <p>Providing the digital tools necessary to spark real-world friendships, academic collaborations, and mentorships.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-helps" class="info-section" style="background: #f1f8ff;">
+        <h2 style="font-size: 2.5rem; color: var(--color-primary-green);">How This Helps You</h2>
+        <div class="section-grid">
+            <div class="info-card">
+                <h3>Break the Ice</h3>
+                <p>Starting college is hard. We make it easy to find students with similar hobbies, majors, or background stories.</p>
+            </div>
+            <div class="info-card">
+                <h3>Verified Security</h3>
+                <p>Only students from our institution can join, ensuring a safe and authentic space for everyone.</p>
+            </div>
+            <div class="info-card">
+                <h3>Event Discovery</h3>
+                <p>Never miss a campus event again. From tech workshops to sports fests, everything is on your dashboard.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="support" class="info-section">
+        <h2 style="font-size: 2.5rem; color: var(--color-accent-orange);">Peer Support & Inclusivity</h2>
+        <p style="max-width: 800px; margin: 20px auto; font-size: 1.1rem; color: #636e72;">
+            Mental health and academic support are core pillars of Campus Match. Through our peer-to-peer network, you can find study buddies for difficult subjects or upperclassmen mentors who have been in your shoes.
+        </p>
+        <a href="#" class="btn-large" onclick="routeToExpo()" style="margin: 40px auto;">Get Started Now</a>
+    </section>
+
+    <footer>
+        <p style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px;">CAMPUS MATCH</p>
+        <p>Developed with ❤️ by <strong>THE DROPOUTS</strong></p>
+        <p style="opacity: 0.5; font-size: 0.8rem; margin-top: 20px;">&copy; 2026 Campus Match Project. All Rights Reserved.</p>
+    </footer>
+
+    <script>
         function routeToExpo() {
-            // Your exact Expo Snack URL
             window.location.href = 'https://snack.expo.dev/@kshalrz/campusmatch-tamesis_libo-on_galazan?platform=web';
         }
     </script>
-
 </body>
 </html>
