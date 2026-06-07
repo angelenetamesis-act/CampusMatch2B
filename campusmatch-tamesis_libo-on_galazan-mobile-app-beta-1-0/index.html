@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusMatch — Student Connection Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sky: #b8e4f7;
+      --sky-mid: #7dcef5;
+      --sky-dark: #2d8cbf;
+      --green: #4caf50;
+      --green-dark: #2e7d32;
+      --orange: #f5841f;
+      --orange-dark: #c15c00;
+      --black: #0f0f0f;
+      --white: #fafafa;
+      --off-white: #f0eee8;
+      --border: 3px solid #0f0f0f;
+      --shadow: 5px 5px 0 #0f0f0f;
+      --shadow-lg: 8px 8px 0 #0f0f0f;
+      --shadow-xl: 12px 12px 0 #0f0f0f;
+      --radius: 0px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--off-white);
+      color: var(--black);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: var(--white);
+      border-bottom: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.9rem;
+      letter-spacing: 2px;
+      color: var(--black);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-dot {
+      width: 12px; height: 12px;
+      background: var(--orange);
+      border: 2px solid var(--black);
+      border-radius: 50%;
+      display: inline-block;
+    }
+    nav { display: flex; gap: 0; }
+    nav a {
+      text-decoration: none;
+      color: var(--black);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 0 18px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      border-left: var(--border);
+      transition: background 0.15s;
+    }
+    nav a:hover { background: var(--sky); }
+    nav a:last-child { border-right: var(--border); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      padding-top: 64px;
+      background: var(--sky);
+      border-bottom: var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      padding: 80px 6% 80px 7%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 32px;
+      z-index: 2;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      width: fit-content;
+    }
+    .badge::before { content: '★'; font-size: 0.9rem; }
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 7vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      color: var(--black);
+    }
+    h1 span.accent { 
+      color: var(--green-dark); 
+      -webkit-text-stroke: 2px var(--black);
+    }
+    h1 span.accent2 { 
+      color: var(--orange); 
+      -webkit-text-stroke: 2px var(--black);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--black);
+      max-width: 480px;
+      border-left: 5px solid var(--green);
+      padding-left: 16px;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--orange);
+      color: var(--black);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      padding: 18px 36px;
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      text-decoration: none;
+      transition: transform 0.1s, box-shadow 0.1s;
+      width: fit-content;
+    }
+    .cta-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 10px 10px 0 var(--black);
+    }
+    .cta-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 var(--black);
+    }
+    .cta-btn::after { content: '→'; font-size: 1.6rem; }
+    .stats-row {
+      display: flex;
+      gap: 0;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      width: fit-content;
+      background: var(--white);
+    }
+    .stat {
+      padding: 12px 20px;
+      text-align: center;
+      border-right: var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      line-height: 1;
+      color: var(--sky-dark);
+    }
+    .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #555; }
+
+    /* HERO RIGHT */
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 5% 60px;
+      position: relative;
+      z-index: 2;
+    }
+    .phones-wrap {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .phone-frame {
+      width: 220px;
+      background: var(--white);
+      border: var(--border);
+      box-shadow: var(--shadow-xl);
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+    .phone-frame::before {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 8px;
+      background: var(--black);
+      border-radius: 0 0 6px 6px;
+      margin: 0 auto 0;
+      position: relative;
+      z-index: 1;
+    }
+    .phone-frame img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+    .phone-frame:nth-child(2) {
+      transform: translateY(50px);
+      box-shadow: 12px 12px 0 var(--green-dark);
+    }
+    .phone-frame:nth-child(1) {
+      box-shadow: 12px 12px 0 var(--orange-dark);
+    }
+
+    /* SCREEN PLACEHOLDER */
+    .screen-placeholder {
+      width: 100%;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #999;
+    }
+    .screen-placeholder .ph-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    /* BG SHAPES */
+    .hero-bg-shape {
+      position: absolute;
+      bottom: -20px;
+      right: -60px;
+      width: 400px;
+      height: 400px;
+      background: var(--sky-mid);
+      border: var(--border);
+      transform: rotate(15deg);
+      z-index: 1;
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-strip {
+      background: var(--green);
+      border-top: var(--border);
+      border-bottom: var(--border);
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 18s linear infinite;
+    }
+    .marquee-inner span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      color: var(--black);
+      padding: 0 32px;
+    }
+    .marquee-inner span::before { content: '✦'; margin-right: 32px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── ABOUT ─── */
+    #about {
+      padding: 100px 7%;
+      background: var(--white);
+      border-bottom: var(--border);
+    }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange-dark);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: 2px;
+      margin-bottom: 0;
+    }
+    .section-title .underline-green {
+      text-decoration: underline;
+      text-decoration-color: var(--green);
+      text-underline-offset: 6px;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 60px;
+      border: var(--border);
+      box-shadow: var(--shadow-xl);
+    }
+    .about-card {
+      padding: 50px 40px;
+      border-right: var(--border);
+      transition: background 0.2s;
+      position: relative;
+    }
+    .about-card:last-child { border-right: none; }
+    .about-card:hover { background: var(--sky); }
+    .about-card-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--off-white);
+      -webkit-text-stroke: 2px #ccc;
+      position: absolute;
+      top: 16px; right: 24px;
+    }
+    .about-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      color: var(--black);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .about-card h3::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 4px;
+      background: var(--orange);
+      margin-top: 8px;
+    }
+    .about-card p { font-size: 1rem; color: #333; line-height: 1.7; position: relative; z-index: 1; }
+
+    /* ─── HOW IT HELPS ─── */
+    #how-it-helps {
+      padding: 100px 7%;
+      background: var(--off-white);
+      border-bottom: var(--border);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 60px;
+      border: var(--border);
+      box-shadow: var(--shadow-xl);
+    }
+    .feature-card {
+      padding: 50px 36px;
+      border-right: var(--border);
+      background: var(--white);
+      transition: transform 0.15s, background 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card:last-child { border-right: none; }
+    .feature-card:hover { background: var(--sky); transform: translateY(-4px); }
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+      box-shadow: 3px 3px 0 var(--black);
+    }
+    .feature-card:nth-child(1) .feature-icon { background: var(--sky); }
+    .feature-card:nth-child(2) .feature-icon { background: var(--orange); }
+    .feature-card:nth-child(3) .feature-icon { background: var(--green); }
+    .feature-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .feature-card p { font-size: 0.95rem; color: #444; line-height: 1.7; }
+    .feature-num {
+      position: absolute;
+      bottom: 16px; right: 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: rgba(0,0,0,0.04);
+      line-height: 1;
+    }
+
+    /* ─── SUPPORT ─── */
+    #support {
+      padding: 100px 7%;
+      background: var(--black);
+      color: var(--white);
+      border-bottom: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    #support .section-label { color: var(--orange); }
+    #support .section-title { color: var(--white); }
+    .support-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-top: 60px;
+      align-items: center;
+    }
+    .support-text p {
+      font-size: 1.05rem;
+      color: #bbb;
+      margin-bottom: 32px;
+      line-height: 1.8;
+      border-left: 4px solid var(--orange);
+      padding-left: 16px;
+    }
+    .support-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--orange);
+      color: var(--black);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      padding: 16px 32px;
+      border: 3px solid var(--orange);
+      box-shadow: 6px 6px 0 var(--orange-dark);
+      text-decoration: none;
+      transition: all 0.1s;
+    }
+    .support-cta:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 10px 10px 0 var(--orange-dark);
+    }
+    .support-cta::after { content: '↗'; font-size: 1.4rem; }
+    .support-pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 3px solid #333;
+    }
+    .pillar {
+      padding: 32px 24px;
+      border-right: 3px solid #333;
+      border-bottom: 3px solid #333;
+    }
+    .pillar:nth-child(even) { border-right: none; }
+    .pillar:nth-child(3), .pillar:nth-child(4) { border-bottom: none; }
+    .pillar-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .pillar h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .pillar p { font-size: 0.85rem; color: #888; line-height: 1.6; }
+
+    /* BG accent */
+    .support-bg-text {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18rem;
+      color: rgba(255,255,255,0.02);
+      line-height: 1;
+      pointer-events: none;
+      letter-spacing: -5px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--off-white);
+      border-top: var(--border);
+      padding: 40px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 3px;
+      color: var(--black);
+    }
+    .footer-by {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .footer-by strong { color: var(--black); }
+    .footer-copy { font-size: 0.8rem; color: #999; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      nav { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-card { border-right: none; border-bottom: var(--border); }
+      .about-card:last-child { border-bottom: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card { border-right: none; border-bottom: var(--border); }
+      .feature-card:last-child { border-bottom: none; }
+      .support-body { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header>
+    <a href="#" class="logo">
+      <span class="logo-dot"></span>
+      CampusMatch
+    </a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#how-it-helps">Features</a>
+      <a href="#support">Support</a>
+    </nav>
+    <a href="https://snack.expo.dev/@kshalrz/campusmatch-tamesis_libo-on_galazan-mobile-app-beta-1-0?fbclid=IwY2xjawSSPq5leHRuA2FlbQIxMABicmlkETFKZ3BieU82QjNqQ2pwQnFjc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHhIhh8_wMyTpZlmeNaIIjEGJDU8Q92B1D1pKAuqaZxEduNF396XpUw2l5uOm_aem_BAQ2lOQ5z1F3wT6sufJjVg" target="_blank" class="cta-btn" style="font-size:0.85rem; padding:12px 20px; letter-spacing:1px; border-radius:0;">
+      LAUNCH APP →
+    </a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-shape"></div>
+    <div class="hero-left">
+      <div class="badge">Powered by Students</div>
+      <h1>
+        BOOST<br>
+        <span class="accent">STUDENT</span><br>
+        <span class="accent2">CONNECTION</span>
+      </h1>
+      <p class="hero-sub">
+        An inclusive campus platform. Find peer support, discover events, and connect with your community — all in one place.
+      </p>
+      <a href="https://snack.expo.dev/@kshalrz/campusmatch-tamesis_libo-on_galazan?platform=web" target="_blank" class="cta-btn">
+        CLICK HERE TO PROCEED TO THE APP
+      </a>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Verified Students</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">Free</div>
+          <div class="stat-label">Always</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">All-In-One</div>
+          <div class="stat-label">Platform</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="phones-wrap">
+        <div class="phone-frame">
+          <img src="campus_match logins.png" alt="CampusMatch Login Screen" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="screen-placeholder" style="display:none; background:#e8f5fc;">
+            <div class="ph-icon">📱</div>
+            <div>Login Screen</div>
+          </div>
+        </div>
+        <div class="phone-frame">
+          <img src="loginscreen.png" alt="CampusMatch Dashboard" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="screen-placeholder" style="display:none; background:#e8f7ea;">
+            <div class="ph-icon">🏠</div>
+            <div>Dashboard</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-inner">
+      <span>Student Connection</span><span>Peer Support</span><span>Event Discovery</span><span>Verified Campus</span><span>Mentorships</span><span>Study Groups</span><span>Inclusivity</span><span>Community</span>
+      <span>Student Connection</span><span>Peer Support</span><span>Event Discovery</span><span>Verified Campus</span><span>Mentorships</span><span>Study Groups</span><span>Inclusivity</span><span>Community</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">Who We Are</div>
+    <div class="section-title">ABOUT <span class="underline-green">CAMPUS MATCH</span></div>
+    <p style="max-width:700px; margin-top:20px; font-size:1.05rem; color:#444; line-height:1.8;">
+      Campus Match is a dedicated social platform designed exclusively for college students. We believe university life is better when we're connected — bridging gaps between departments, years, and interests to create a unified student body.
+    </p>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-card-num">01</div>
+        <h3>Our Vision</h3>
+        <p>To create a campus environment where no student feels isolated and every voice is heard and valued as part of the community.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-num">02</div>
+        <h3>Our Mission</h3>
+        <p>Providing the digital tools necessary to spark real-world friendships, academic collaborations, and meaningful mentorships across campus.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT HELPS -->
+  <section id="how-it-helps">
+    <div class="section-label">What We Offer</div>
+    <div class="section-title">HOW THIS <span style="text-decoration:underline; text-decoration-color:var(--sky-dark); text-underline-offset:6px;">HELPS YOU</span></div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>Break The Ice</h3>
+        <p>Starting college is tough. We make it easy to find students who share your hobbies, major, or background — real connections from day one.</p>
+        <div class="feature-num">01</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Verified Security</h3>
+        <p>Only verified students from your institution can join — ensuring an authentic, safe space where everyone can express themselves freely.</p>
+        <div class="feature-num">02</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Event Discovery</h3>
+        <p>Never miss a campus event again. From tech workshops to sports fests — everything lands on your personalized dashboard.</p>
+        <div class="feature-num">03</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PEER SUPPORT -->
+  <section id="support">
+    <div class="section-label">We've Got You</div>
+    <div class="section-title">PEER SUPPORT &amp;<br>INCLUSIVITY</div>
+    <div class="support-body">
+      <div class="support-text">
+        <p>Mental health and academic support are core pillars of Campus Match. Our peer-to-peer network connects you with study buddies for difficult subjects and upperclassmen mentors who've walked your path.</p>
+        <a href="https://snack.expo.dev/@kshalrz/campusmatch-tamesis_libo-on_galazan-mobile-app-beta-1-0?fbclid=IwY2xjawSSPq5leHRuA2FlbQIxMABicmlkETFKZ3BieU82QjNqQ2pwQnFjc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHhIhh8_wMyTpZlmeNaIIjEGJDU8Q92B1D1pKAuqaZxEduNF396XpUw2l5uOm_aem_BAQ2lOQ5z1F3wT6sufJjVg" target="_blank" class="support-cta">
+          CLICK HERE TO PROCEED TO THE APP
+        </a>
+      </div>
+      <div class="support-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">💬</div>
+          <h4>Study Buddies</h4>
+          <p>Find classmates tackling the same subjects and crush deadlines together.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🎓</div>
+          <h4>Mentorship</h4>
+          <p>Get guided by upperclassmen who've already walked your road.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🧠</div>
+          <h4>Mental Wellness</h4>
+          <p>A safe space to share struggles and find support without judgment.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🌐</div>
+          <h4>Inclusivity</h4>
+          <p>Every student — regardless of background — belongs here.</p>
+        </div>
+      </div>
+    </div>
+    <div class="support-bg-text" aria-hidden="true">CM</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">CAMPUS MATCH</div>
+    <div class="footer-by">Developed with ❤️ by <strong>THE DROPOUTS</strong></div>
+    <div class="footer-copy">© 2026 Campus Match Project. All Rights Reserved.</div>
+  </footer>
+
+</body>
+</html>
